@@ -13,20 +13,18 @@ The goal of this project is to demonstrate a basic ML workflow:
 
 ## Project Structure
 
-student-score-ml/
-│
-├── data/                # Dataset
-├── models/              # Saved ML models
-│   └── model.pkl
-│
-├── scripts/             # Training scripts
-│   └── train_model.py
-│
-├── api/                 # API for predictions
-│   └── app.py
-│
-├── requirements.txt     # Python dependencies
-└── README.md            # Project documentation
+- data/               # Dataset
+- models/             # Saved ML models
+  - model.pkl
+- scripts/            # Training scripts
+  - train_model.py
+- api/                # API for predictions
+  - app.py
+- graphs/             # Graphs for evaluation & prediction
+  - actual_vs_predicted.png
+  - prediction_example.png
+- requirements.txt    # Python dependencies
+- README.md           # Project documentation
 
 ## Model
 
@@ -42,12 +40,10 @@ Linear Regression (Scikit-Learn)
 ## Example API Request
 
 ### POST request:
-
-`json
 {
   "Study_Hours": 6
 }
-## Response:
+### Response:
 {
   "Predicted_Score": 80
 }
@@ -67,5 +63,5 @@ python api/app.py
 http://127.0.0.1:5000
 
 ## Author
-Zaynab
+Zaynab -
 Machine Learning Engineer (Learning Journey)
