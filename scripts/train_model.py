@@ -1,47 +1,59 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import pickle
 import os
 
-# 1️⃣ Ensure models folder exists
-models_dir = "../models"
-if not os.path.exists(models_dir):
-    os.makedirs(models_dir)
-    print(f"Created folder: {models_dir}")
+# Make folders if not exist
+os.makedirs("../models", exist_ok=True)
+os.makedirs("../graphs", exist_ok=True)
 
-# 2️⃣ Dataset
+# Dataset
 data = {
-    "Study_Hours": [1, 2, 3, 4, 5],
-    "Exam_Score": [30, 40, 50, 60, 70]
+    "Study_Hours": [1,2,3,4,5],
+    "Exam_Score": [30,40,50,60,70]
 }
 df = pd.DataFrame(data)
 X = df[["Study_Hours"]]
 Y = df["Exam_Score"]
 
-# 3️⃣ Train/test split
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
-
-# 4️⃣ Train model
+# Train model
 model = LinearRegression()
-model.fit(X_train, Y_train)
-print("Model trained successfully!")
+model.fit(X,Y)
 
-# 5️⃣ Evaluate
-Y_pred = model.predict(X_test)
-mse = mean_squared_error(Y_test, Y_pred)
-r2 = r2_score(Y_test, Y_pred)
+# Predict for training data
+y_pred = model.predict(X)
+
+# Evaluation
+mse = mean_squared_error(Y, y_pred)
+r2 = r2_score(Y, y_pred)
 print(f"Mean Squared Error: {mse}")
 print(f"R² Score: {r2}")
 
-# 6️⃣ Save model
-#model_path = os.path.join(models_dir, "linear_model.pkl")
-with open("models/linear_model.pkl", "wb") as file:
-    pickle.dump(model, file)
-print("Model saved at models/linear_model.pkl")
+# Plot actual vs predicted
+plt.scatter(X, Y, color='blue', label='Actual')
+plt.plot(X, y_pred, color='red', label='Predicted')
+plt.xlabel('Study Hours')
+plt.ylabel('Exam Score')
+plt.title('Actual vs Predicted Exam Scores')
+plt.legend()
+plt.savefig('../graphs/actual_vs_predicted.png')
+plt.show()
 
-# 7️⃣ Test prediction
-prediction = model.predict([[6]])
-print(f"Predicted score for 6 study hours: {prediction[0]}")
+# Predict example
+hours = [[6]]
+pred_score = model.predict(hours)
+plt.bar([6], [pred_score[0]], color='green')
+plt.xlabel('Study Hours')
+plt.ylabel('Predicted Score')
+plt.title('Prediction for 6 Study Hours')
+plt.savefig('../graphs/prediction_example.png')
+plt.show()
+
+# Save model
+with open("../models/model.pkl", "wb") as file:
+    pickle.dump(model, file)
+
+print("Model and graphs saved!")
 
