@@ -15,7 +15,7 @@ The goal of this project is to demonstrate a complete ML workflow:
 
 ## Project Structure
 
-- data/               # Dataset (if using CSV)
+- data/               # Dataset
 - models/             # Saved ML models
   - model.pkl
 - scripts/            # Training scripts
@@ -38,7 +38,7 @@ Evaluation Metrics Example:
 
 | Metric | Value |
 |--------|-------|
-| Mean Squared Error (MSE) | 0.0 (perfect for this toy dataset) |
+| Mean Squared Error (MSE) | 1.0 (perfect for this toy dataset) |
 | R² Score | 1.0 |
 
 ## Visualizations
@@ -52,15 +52,14 @@ Evaluation Metrics Example:
 ## Example API Request
 
 Send a POST request to the API:
-
 URL: http://127.0.0.1:5000/predict  
 
-Request JSON:
-`json
+Request:
 {
   "Study_Hours": 6
 }
-### Response:
+
+Response:
 {
   "Predicted_Score": 80
 }
